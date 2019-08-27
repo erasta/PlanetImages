@@ -1,6 +1,5 @@
 import json
 import numpy as np
-import scipy.linalg
 
 def copy_cloud_mask(original_udm, product_udm):
     prod_without_cloud = np.bitwise_and(product_udm, 253) # 253 = all the 8 bits are lit except bit 1
