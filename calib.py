@@ -18,12 +18,11 @@ def apply_calibration(calibration_filename, image_matrix):
     return calibrated_image_matrix
 
 
-im = np.array(json.loads(open('im2.json', 'r').read()))
+im = np.array(json.loads(open('data/im2.json', 'r').read()))
 print('im', im.shape, '\n',im)
-# print(scipy.linalg.sqrtm(ro_sqr))
-# udm_prod = np.array(json.loads(open('udm_prod.json', 'r').read()))
-# udm_orig = np.array(json.loads(open('udm_orig.json', 'r').read()))
+# udm_prod = np.array(json.loads(open('data/udm_prod.json', 'r').read()))
+# udm_orig = np.array(json.loads(open('data/udm_orig.json', 'r').read()))
 # print(copy_cloud_mask(udm_orig, udm_prod))
-out = apply_calibration('c.json', im)
+out = apply_calibration('data/c.json', im)
 print('out', out.shape, '\n',out)
 
