@@ -1,3 +1,4 @@
+import sys
 import json
 import numpy as np
 
@@ -28,16 +29,20 @@ def apply_calibration(calibration_filename, image_matrix):
     alpha = np.interp(x, xp, calib_vec)
 
     # calibrating the image
-    calibrated_image_matrix = im * alpha
+    calibrated_image_matrix = image_matrix * alpha
 
     return calibrated_image_matrix
 
 
-im = np.array(json.loads(open('data/im2.json', 'r').read()))
-print('im', im.shape, '\n',im)
-# udm_prod = np.array(json.loads(open('data/udm_prod.json', 'r').read()))
-# udm_orig = np.array(json.loads(open('data/udm_orig.json', 'r').read()))
-# print(copy_cloud_mask(udm_orig, udm_prod))
-out = apply_calibration('data/c.json', im)
-print('out', out.shape, '\n',out)
+def main(argv):
+    im = np.array(json.loads(open('data/im2.json', 'r').read()))
+    print('im', im.shape, '\n',im)
+    # udm_prod = np.array(json.loads(open('data/udm_prod.json', 'r').read()))
+    # udm_orig = np.array(json.loads(open('data/udm_orig.json', 'r').read()))
+    # print(copy_cloud_mask(udm_orig, udm_prod))
+    out = apply_calibration('data/c.json', im)
+    print('out', out.shape, '\n',out)
 
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

@@ -9,6 +9,6 @@ sh build.sh
 
 run after build:
 ```
-python -m calib
+sh calib
 ```
 
