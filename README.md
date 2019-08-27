@@ -9,6 +9,9 @@ sh build.sh
 
 run after build:
 ```
-python -m calib
+python -m calib calib data/im.json data/calib.json
 ```
-
+or
+```
+python -m calib cloud data/udm_orig.json data/udm_prod.json
+```

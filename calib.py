@@ -34,14 +34,31 @@ def apply_calibration(calibration_filename, image_matrix):
     return calibrated_image_matrix
 
 
+def usage_exit():
+    print('Run with one of the following usages:')
+    print('1. calib.py calib image_filename calibration_filename')
+    print('2. calib.py cloud original_udm_filename product_udm_filename')
+    sys.exit(2)
+
+
 def main(argv):
-    im = np.array(json.loads(open('data/im2.json', 'r').read()))
-    print('im', im.shape, '\n',im)
-    # udm_prod = np.array(json.loads(open('data/udm_prod.json', 'r').read()))
-    # udm_orig = np.array(json.loads(open('data/udm_orig.json', 'r').read()))
-    # print(copy_cloud_mask(udm_orig, udm_prod))
-    out = apply_calibration('data/c.json', im)
-    print('out', out.shape, '\n',out)
+    print(len(argv), argv)
+    if (len(argv) < 3):
+        print('not enough params')
+        usage_exit()
+    if (argv[0] == 'calib'):
+        image = np.array(json.loads(open(argv[1], 'r').read()))
+        calib_filename = argv[2]
+        calibrated_image_matrix = apply_calibration(calib_filename, image)
+        print('calibrated_image_matrix', calibrated_image_matrix.shape, '\n',calibrated_image_matrix)
+    elif (argv[0] == 'cloud'):
+        udm_orig = np.array(json.loads(open(argv[1], 'r').read()))
+        udm_prod = np.array(json.loads(open(argv[2], 'r').read()))
+        corrected_cloud_udm = copy_cloud_mask(udm_orig, udm_prod)
+        print('corrected_cloud_udm', corrected_cloud_udm.shape, '\n',corrected_cloud_udm)
+    else:
+        print('unknown operator', argv[1])
+        usage_exit()
 
 
 if __name__ == "__main__":
