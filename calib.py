@@ -42,21 +42,26 @@ def usage_exit():
 
 
 def main(argv):
-    print(len(argv), argv)
     if (len(argv) < 3):
         print('not enough params')
         usage_exit()
+
     if (argv[0] == 'calib'):
+        # calibrate image by vector
         image = np.array(json.loads(open(argv[1], 'r').read()))
         calib_filename = argv[2]
         calibrated_image_matrix = apply_calibration(calib_filename, image)
         print('calibrated_image_matrix', calibrated_image_matrix.shape, '\n',calibrated_image_matrix)
+
     elif (argv[0] == 'cloud'):
+        # correct cloud udm
         udm_orig = np.array(json.loads(open(argv[1], 'r').read()))
         udm_prod = np.array(json.loads(open(argv[2], 'r').read()))
         corrected_cloud_udm = copy_cloud_mask(udm_orig, udm_prod)
         print('corrected_cloud_udm', corrected_cloud_udm.shape, '\n',corrected_cloud_udm)
+
     else:
+        # error
         print('unknown operator', argv[1])
         usage_exit()
 
